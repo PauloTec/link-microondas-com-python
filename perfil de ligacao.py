@@ -239,6 +239,19 @@ AtenLiquidaTx = AtenEspacoLivreTx + A_atmosferica + A_guia_ondas1 + A_guia_ondas
 AtenLiquidaRxMapa = AtenEspacoLivreRx_mapa + A_atmosferica + A_guia_ondas1 + A_guia_ondas2 - (ganhoTx + ganhoRx)
 AtenLiquidaRx = AtenEspacoLivreRx + A_atmosferica + A_guia_ondas1 + A_guia_ondas2 - (ganhoTx + ganhoRx)
 
+#-------------- 3º NÍVEL DE RECEPÇÃO NOMINAL (Pvu)
+NivelRececaoNominalMapa = PotenciaTx - AtenEspacoLivreMapa
+NivelRececaoNominal = PotenciaTx - AtenEspacoLivre
+
+# Na transmissao (com atenuação em dB)
+NivelRececaoNominalTx_mapa = PotenciaTx - AtenEspacoLivreTx_mapa
+NivelRececaoNominalTx = PotenciaTx - AtenEspacoLivreTx
+
+#Na recepcao
+NivelRececaoNominalRx_mapa = PotenciaRx - AtenEspacoLivreRx_mapa
+NivelRececaoNominalRx = PotenciaRx - AtenEspacoLivreRx
+
+
 #-------------------- IMPRIMINDO DADOS ---------------------------------------------------
 #print(' --------------- Latitudes e Longitudes -------------------')
 print()
@@ -342,3 +355,16 @@ print('Atenuação Líquida Para Transmissão', AtenLiquidaTx)
 
 print('Atenuação Líquida Para Recepção (dados do mapa)', AtenLiquidaRxMapa)
 print('Atenuação Líquida Para Recepção', AtenLiquidaRx)
+
+print()
+print('=========================================================')
+print('NÍVEL DE RECEPÇÃO NOMINAL')
+print('Nível de recepção nominal (dados do mapa)', NivelRececaoNominalMapa)
+print('Nível de recepção nominal', NivelRececaoNominal)
+
+print('Nível de recepção Para Transmissão', NivelRececaoNominalTx_mapa)
+print('Nível de recepção Para Transmissão', NivelRececaoNominalTx)
+
+print('Nível de recepção Para Recepção', NivelRececaoNominalRx_mapa)
+print('Nível de recepção Para Recepção', NivelRececaoNominalRx)
+
