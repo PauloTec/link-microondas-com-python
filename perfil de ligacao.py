@@ -208,11 +208,16 @@ alturaAntenaMinima60 = alturaAntenaMinima+RaioFresnel60
 
 #h2 = distancia_total*(hpc+Hc+Mc+Ms-hB)
 
+#--------------------------------------------------------------------------------------
+#           CÁLCULOS DE CARACTERÍSTICAS ESPECÍFICAS DO SISTEMA
+#---------------------------------------------------------------------------------------
+
 #-------------- CALCULO DAS ATENUAÇÕES
 print()
-frequencia_opracao = float(print('Insere a frequência de operação do sistema'))
-frequencia_downlink = float(print('Insere a frequência de downlink'))
-# 1º ATENUAÇÃO NO ESPAÇO LIVRE EM DB com a frequência de operação do sistema
+frequencia_operacao = float(input('Insere a frequência de operação do sistema'))
+frequencia_downlink = float(input('Insere a frequência de downlink'))
+
+#========================= 1º ATENUAÇÃO NO ESPAÇO LIVRE EM DB com a frequência de operação do sistema
 AtenEspacoLivreMapa = 43.4 + 20 * math.log10(dAB * frequencia_uplink)
 AtenEspacoLivre = 43.4 + 20 * math.log10(distancia_total * frequencia_uplink) #distância total calculado
 
@@ -224,7 +229,7 @@ AtenEspacoLivreTx = 32.45 + 20 * math.log10(distancia_total * frequencia_uplink)
 AtenEspacoLivreRx_mapa = 32.45 + 20 * math.log10(dAB) + 20 * math.log10(frequencia_downlink)
 AtenEspacoLivreRx = 32.45 + 20 * math.log10(distancia_total) + 20 * math.log10(frequencia_downlink) #distância total calculado
 
-# 2º ATENUAÇÃO LÍQUIDA
+#========================= 2º ATENUAÇÃO LÍQUIDA
 ganhoTx = int(input('Digite o ganho da antena de transmissão: '))
 ganhoRx = int(input('Digite o ganho da antena de recepção: '))
 
@@ -239,7 +244,7 @@ AtenLiquidaTx = AtenEspacoLivreTx + A_atmosferica + A_guia_ondas1 + A_guia_ondas
 AtenLiquidaRxMapa = AtenEspacoLivreRx_mapa + A_atmosferica + A_guia_ondas1 + A_guia_ondas2 - (ganhoTx + ganhoRx)
 AtenLiquidaRx = AtenEspacoLivreRx + A_atmosferica + A_guia_ondas1 + A_guia_ondas2 - (ganhoTx + ganhoRx)
 
-#-------------- 3º NÍVEL DE RECEPÇÃO NOMINAL (Pvu)
+#========================= 3º NÍVEL DE RECEPÇÃO NOMINAL (Pvu)
 NivelRececaoNominalMapa = PotenciaTx - AtenEspacoLivreMapa
 NivelRececaoNominal = PotenciaTx - AtenEspacoLivre
 
@@ -251,6 +256,19 @@ NivelRececaoNominalTx = PotenciaTx - AtenEspacoLivreTx
 NivelRececaoNominalRx_mapa = PotenciaRx - AtenEspacoLivreRx_mapa
 NivelRececaoNominalRx = PotenciaRx - AtenEspacoLivreRx
 
+#========================= 4º MARGEM LIQUIDA DE LIGAÇÃO
+# Oter o resultado em dB
+potenciaSistema = int(input('Digite o potencia do sistema: '))
+margemMapa = NivelRececaoNominalMapa - potenciaSistema
+margem = NivelRececaoNominal - potenciaSistema
+
+#Na transmissao
+margemTxMapa = NivelRececaoNominalTx_mapa - PotenciaTx
+margemTx = NivelRececaoNominalTx - PotenciaTx
+
+#Na recepcao
+margemRxMapa = NivelRececaoNominalRx_mapa - PotenciaRx
+margemRx = NivelRececaoNominalRx - PotenciaRx
 
 #-------------------- IMPRIMINDO DADOS ---------------------------------------------------
 #print(' --------------- Latitudes e Longitudes -------------------')
@@ -368,3 +386,14 @@ print('Nível de recepção Para Transmissão', NivelRececaoNominalTx)
 print('Nível de recepção Para Recepção', NivelRececaoNominalRx_mapa)
 print('Nível de recepção Para Recepção', NivelRececaoNominalRx)
 
+print()
+print('=========================================================')
+print('MARGEM LÍQUIDA DE LIGAÇÃO')
+print('Margem do sistema (mapa)', margemMapa)
+print('Margem do sistema', margem)
+
+print('Margem do sistema Para Transmissao (mapa)', margemTxMapa)
+print('Margem do sistema Para Transmissao', margemTx)
+
+print('Margem do sistema Para Recepção (mapa)', margemRxMapa)
+print('Margem do sistema Para Recepção', margemRx)
