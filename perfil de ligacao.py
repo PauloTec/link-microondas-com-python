@@ -270,6 +270,23 @@ margemTx = NivelRececaoNominalTx - PotenciaTx
 margemRxMapa = NivelRececaoNominalRx_mapa - PotenciaRx
 margemRx = NivelRececaoNominalRx - PotenciaRx
 
+#========================= 5º TAXA PLUVIOMÉTRICA
+#Distancia da Chuva para R de 5 % (0.05)
+R = (95 * 0.05)/0.01  #R = 475, Taxa pluviométrica para R de 5 % (0.05)
+r = -0.015 #auxiliar do expoente
+
+R001 = 95/1000  #R001=95*10^-3;
+
+#do = (e ^ (r * R001))
+do = math.exp(r * R001)
+distanciaChuva = math.exp(r * R)
+
+#Comprimento Efectivo da Ligação
+comprimentoEfectivoLigacao = (distancia_total/distanciaChuva)
+
+Def = (distancia_total / (1 + comprimentoEfectivoLigacao)) * 1000
+
+
 #-------------------- IMPRIMINDO DADOS ---------------------------------------------------
 #print(' --------------- Latitudes e Longitudes -------------------')
 print()
@@ -397,3 +414,11 @@ print('Margem do sistema Para Transmissao', margemTx)
 
 print('Margem do sistema Para Recepção (mapa)', margemRxMapa)
 print('Margem do sistema Para Recepção', margemRx)
+
+print()
+print('=========================================================')
+print('TAXA PLUVIOMÉTRICA')
+print('Distância da Chuva para R de 5 % (0.05)', distanciaChuva)
+
+print('Comprimento Efectivo da Ligação ', comprimentoEfectivoLigacao)
+print('Distância Efectivo da Ligação ', Def)
